@@ -13,7 +13,7 @@ data3 = round(netreturn,3)
 data2 = cbind(date1, data3)
 dim(asset)
 dim(netreturn)
-rf=0.35*10^(-2) #??????????????????????????????///not sure!!!!!!!!!!!!!
+rf=0.07*10^(-2) #??????????????????????????????///not sure!!!!!!!!!!!!!
 
 AMD<-netreturn[,1]
 AAPL<-netreturn[,2]
@@ -44,6 +44,11 @@ apply(asset,2,skewness)
 # kurtosis
 apply(netreturn,2,kurtosis)
 apply(asset,2,kurtosis)
+
+# annualized statistics
+round(apply(netreturn,2,mean)*12,2)
+round(apply(netreturn,2,sd)*sqrt(12),2)
+
 # beta 
 betai<-rep(0,ncol(netreturn))
 for(i in 1:ncol(netreturn)){
@@ -154,6 +159,68 @@ for(i in 1:(ncol(EquityCurve)-1)){
 }
 legend("topleft",name,lty=c(2,rep(1,15)),col=c("black",colorEC),cex=0.5)
 
+# separate plot of equity curve
+par(mfrow = c(2,3))
+colorEC2<-c("red","blue")
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="AMD",ylim=c(min(EquityCurve[,16],EquityCurve[,1]),max(EquityCurve[,16],EquityCurve[,1])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,1],col="blue")
+legend("topleft",c("sp500","AMD"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="AAPL",ylim=c(min(EquityCurve[,16],EquityCurve[,2]),max(EquityCurve[,16],EquityCurve[,2])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,2],col="blue")
+legend("topleft",c("sp500","AAPL"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="BAC",ylim=c(min(EquityCurve[,16],EquityCurve[,3]),max(EquityCurve[,16],EquityCurve[,3])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,3],col="blue")
+legend("topleft",c("sp500","AMD"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="COKE",ylim=c(min(EquityCurve[,16],EquityCurve[,4]),max(EquityCurve[,16],EquityCurve[,4])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,4],col="blue")
+legend("topleft",c("sp500","COKE"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="FCX",ylim=c(min(EquityCurve[,16],EquityCurve[,5]),max(EquityCurve[,16]+1,EquityCurve[,5]+1)),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,5],col="blue")
+legend("topleft",c("sp500","FCX"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="F",ylim=c(min(EquityCurve[,16],EquityCurve[,6]),max(EquityCurve[,16],EquityCurve[,6])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,6],col="blue")
+legend("topleft",c("sp500","F"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="GE",ylim=c(min(EquityCurve[,16],EquityCurve[,7]),max(EquityCurve[,16],EquityCurve[,7])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,7],col="blue")
+legend("topleft",c("sp500","GE"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="MDT",ylim=c(min(EquityCurve[,16],EquityCurve[,8]),max(EquityCurve[,16],EquityCurve[,8])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,8],col="blue")
+legend("topleft",c("sp500","MDT"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="MRO",ylim=c(min(EquityCurve[,16],EquityCurve[,9]),max(EquityCurve[,16],EquityCurve[,9])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,9],col="blue")
+legend("topleft",c("sp500","MRO"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="PFE",ylim=c(min(EquityCurve[,16],EquityCurve[,10]),max(EquityCurve[,16],EquityCurve[,10])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,10],col="blue")
+legend("topleft",c("sp500","PFE"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="SIRI",ylim=c(min(EquityCurve[,16],EquityCurve[,11]),max(EquityCurve[,16],EquityCurve[,11])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,11],col="blue")
+legend("topleft",c("sp500","SIRI"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="SBUX",ylim=c(min(EquityCurve[,16],EquityCurve[,12]),max(EquityCurve[,16],EquityCurve[,12])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,12],col="blue")
+legend("topleft",c("sp500","SBUX"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="X",ylim=c(min(EquityCurve[,16],EquityCurve[,13]),max(EquityCurve[,16],EquityCurve[,13])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,13],col="blue")
+legend("topleft",c("sp500","X"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="VALE",ylim=c(min(EquityCurve[,16],EquityCurve[,14]),max(EquityCurve[,16],EquityCurve[,14])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,14],col="blue")
+legend("topleft",c("sp500","VALE"),lty=c(2,1),col=colorEC2)
+
+plot(EquityCurve[,16],type="l",lwd=2.5,lty=2,main="VZ",ylim=c(min(EquityCurve[,16],EquityCurve[,15]),max(EquityCurve[,16],EquityCurve[,15])),ylab="Return of 1 dollar", xlab="Time Series",col="red")
+lines(EquityCurve[,15],col="blue")
+legend("topleft",c("sp500","VZ"),lty=c(2,1),col=colorEC2)
 
 #rainbow color
 # pie(rep(1, times = 1000), labels = "", col = rainbow(1000), border = rainbow(1000),main = "rainbow1000")
@@ -356,7 +423,7 @@ qqnormPlot(VZ,title=FALSE)
 title(main="vZ",ylab=NULL)
 
 
-# Stationarity Test (normality)
+# Stationarity Test 
 
 # Priestley-Subba Rao
 library(fractal)
@@ -460,6 +527,40 @@ pp.test(netreturn[,12])
 pp.test(netreturn[,13])
 pp.test(netreturn[,14])
 pp.test(netreturn[,15])
+
+# Normality Test
+jarqueberaTest(netreturn[,1])
+jarqueberaTest(netreturn[,2])
+jarqueberaTest(netreturn[,3])
+jarqueberaTest(netreturn[,4])
+jarqueberaTest(netreturn[,5])
+jarqueberaTest(netreturn[,6])
+jarqueberaTest(netreturn[,7])
+jarqueberaTest(netreturn[,8])
+jarqueberaTest(netreturn[,9])
+jarqueberaTest(netreturn[,10])
+jarqueberaTest(netreturn[,11])
+jarqueberaTest(netreturn[,12])
+jarqueberaTest(netreturn[,13])
+jarqueberaTest(netreturn[,14])
+jarqueberaTest(netreturn[,15])
+
+ks.test(netreturn[,1])
+ks.test(netreturn[,2])
+ks.test(netreturn[,3])
+ks.test(netreturn[,4])
+ks.test(netreturn[,5])
+ks.test(netreturn[,6])
+ks.test(netreturn[,7])
+ks.test(netreturn[,8])
+ks.test(netreturn[,9])
+ks.test(netreturn[,10])
+ks.test(netreturn[,11])
+ks.test(netreturn[,12])
+ks.test(netreturn[,13])
+ks.test(netreturn[,14])
+ks.test(netreturn[,15])
+
 
 # Source: http://www.statosphere.com.au/check-time-series-stationary-r/
 
@@ -670,6 +771,8 @@ legend("topleft",
 A<-100000
 
 MVP_weight
+round(MVP_weight*100,2)
+
 mean_MPV<-MVP_weight%*%mean_vect
 A_mean_MPV<-mean_MPV*12
 
@@ -683,10 +786,29 @@ ES_MVP<--sum(MVP_data*(MVP_data<quantile(MVP_data,0.05)))/sum(MVP_data<quantile(
 VaR_MVP2<--A*(mean(MVP_data)+qnorm(0.05)*sd(MVP_data))
 ES_MVP2<-A*(-mean(MVP_data)+sd(MVP_data)*dnorm(qnorm(0.05))/0.05)
 
+B=10000
+VaR_MVP_a<-rep(0,B)
+ES_MVP_a<-rep(0,B)
+for (i in 1:B){
+  data_a<-sample(MVP_data,length(MVP_data),replace = TRUE)
+  VaR_MVP_a[i]<--quantile(data_a,0.05)*A
+  ES_MVP_a[i]<--sum(data_a*(data_a<quantile(data_a,0.05)))/sum(data_a<quantile(data_a,0.05))*A
+}
+CIU_VaR_MVP_a<-2*VaR_MVP-quantile(VaR_MVP_a,0.025)
+CIL_VaR_MVP_a<-2*VaR_MVP-quantile(VaR_MVP_a,0.975)
+CIU_ES_MVP_a<-2*ES_MVP-quantile(ES_MVP_a,0.025,na.rm=TRUE)
+CIL_ES_MVP_a<-2*ES_MVP-quantile(ES_MVP_a,0.975,na.rm=TRUE)
+
+# Sharpe Ratio
+MVP_data<-rowSums(as.matrix(netreturn[,-16])%*%diag(MVP_weight))
+sr_MVP<-(mean(MVP_data)*12-rf)/(sd(MVP_data)*sqrt(12))
+
 # MVP_data<-sweep(as.matrix(netreturn[,-16]),2,MPV_weight,'*')
 
 # Tangent
 tangent_weight
+round(tangent_weight*100,2)
+
 mean_tangent<-tangent_weight%*%mean_vect
 A_mean_tangent<-mean_tangent*12
 
@@ -703,6 +825,18 @@ ES_tangent<--sum(tangent_data*(tangent_data<quantile(tangent_data,0.05)))/sum(ta
 VaR_tangent2<--A*(mean(tangent_data)+qnorm(0.05)*sd(tangent_data))
 ES_tangent2<-A*(-mean(tangent_data)+sd(tangent_data)*dnorm(qnorm(0.05))/0.05)
 
+B=10000
+VaR_tangent_b<-rep(0,B)
+ES_tangent_b<-rep(0,B)
+for (i in 1:B){
+  data_b<-sample(tangent_data,length(tangent_data),replace = TRUE)
+  VaR_tangent_b[i]<--quantile(data_b,0.05)*A
+  ES_tangent_b[i]<--sum(data_b*(data_b<quantile(data_b,0.05)))/sum(data_b<quantile(data_b,0.05))*A
+}
+CIU_VaR_tangent_b<-2*VaR_tangent-quantile(VaR_tangent_b,0.025)
+CIL_VaR_tangent_b<-2*VaR_tangent-quantile(VaR_tangent_b,0.975)
+CIU_ES_tangent_b<-2*ES_tangent-quantile(ES_tangent_b,0.025,na.rm=TRUE)
+CIL_ES_tangent_b<-2*ES_tangent-quantile(ES_tangent_b,0.975,na.rm=TRUE)
 
 # sharpe ratio
 tangent_data<-rowSums(as.matrix(netreturn[,-16])%*%diag(tangent_weight))
@@ -766,6 +900,8 @@ legend("topleft",
 A<-100000
 
 MVP_weight_no
+round(MVP_weight_no*100,2)
+
 mean_MPV_no<-MVP_weight_no%*%mean_vect
 A_mean_MPV_no<-mean_MPV_no*12
 
@@ -779,10 +915,30 @@ ES_MVP_no<--sum(MVP_data_no*(MVP_data_no<quantile(MVP_data_no,0.05)))/sum(MVP_da
 VaR_MVP_no2<--A*(mean(MVP_data_no)+qnorm(0.05)*sd(MVP_data_no))
 ES_MVP_no2<-A*(-mean(MVP_data_no)+sd(MVP_data_no)*dnorm(qnorm(0.05))/0.05)
 
+B=10000
+VaR_MVP_c<-rep(0,B)
+ES_MVP_c<-rep(0,B)
+for (i in 1:B){
+  data_c<-sample(MVP_data_no,length(MVP_data_no),replace = TRUE)
+  VaR_MVP_c[i]<--quantile(data_c,0.05)*A
+  ES_MVP_c[i]<--sum(data_c*(data_c<quantile(data_c,0.05)))/sum(data_c<quantile(data_c,0.05))*A
+}
+CIU_VaR_MVP_c<-2*VaR_MVP_no-quantile(VaR_MVP_c,0.025)
+CIL_VaR_MVP_c<-2*VaR_MVP_no-quantile(VaR_MVP_c,0.975)
+CIU_ES_MVP_c<-2*ES_MVP_no-quantile(ES_MVP_c,0.025,na.rm=TRUE)
+CIL_ES_MVP_c<-2*ES_MVP_no-quantile(ES_MVP_c,0.975,na.rm=TRUE)
+
+# Sharpe Ratio
+MVP_data_no<-rowSums(as.matrix(netreturn[,-16])%*%diag(MVP_weight_no))
+sr_MVP_no<-(mean(MVP_data_no)*12-rf)/(sd(MVP_data_no)*sqrt(12))
+
+
 # MVP_data<-sweep(as.matrix(netreturn[,-16]),2,MPV_weight,'*')
 
 # Tangent_no
 tangent_weight_no
+round(tangent_weight_no*100,3)
+
 mean_tangent_no<-tangent_weight_no%*%mean_vect
 A_mean_tangent_no<-mean_tangent_no*12
 
@@ -797,6 +953,19 @@ VaR_tangent_no<--quantile(tangent_data_no,0.05)*A
 ES_tangent_no<--sum(tangent_data_no*(tangent_data_no<quantile(tangent_data_no,0.05)))/sum(tangent_data_no<quantile(tangent_data_no,0.05))*A
 VaR_tangent_no2<--A*(mean(tangent_data_no)+qnorm(0.05)*sd(tangent_data_no))
 ES_tangent_no2<-A*(-mean(tangent_data_no)+sd(tangent_data_no)*dnorm(qnorm(0.05))/0.05)
+
+B=10000
+VaR_tangent_d<-rep(0,B)
+ES_tangent_d<-rep(0,B)
+for (i in 1:B){
+  data_d<-sample(tangent_data_no,length(tangent_data_no),replace = TRUE)
+  VaR_tangent_d[i]<--quantile(data_d,0.05)*A
+  ES_tangent_d[i]<--sum(data_d*(data_d<quantile(data_d,0.05)))/sum(data_d<quantile(data_d,0.05))*A
+}
+CIU_VaR_tangent_d<-2*VaR_tangent_no-quantile(VaR_tangent_d,0.025)
+CIL_VaR_tangent_d<-2*VaR_tangent_no-quantile(VaR_tangent_d,0.975)
+CIU_ES_tangent_d<-2*ES_tangent_no-quantile(ES_tangent_d,0.025,na.rm=TRUE)
+CIL_ES_tangent_d<-2*ES_tangent_no-quantile(ES_tangent_d,0.975,na.rm=TRUE)
 
 # Sharpe ratio
 tangent_data_no<-rowSums(as.matrix(netreturn[,-16])%*%diag(tangent_weight_no))
@@ -838,21 +1007,61 @@ ES_t<--sum(t_data*(t_data<quantile(t_data,0.05)))/sum(t_data<quantile(t_data,0.0
 VaR_t2<--A*(mean(t_data)+qnorm(0.05)*sd(t_data))
 ES_t2<-A*(-mean(t_data)+sd(t_data)*dnorm(qnorm(0.05))/0.05)
 
+B=10000
+VaR_t_e<-rep(0,B)
+ES_t_e<-rep(0,B)
+for (i in 1:B){
+  data_e<-sample(t_data,length(t_data),replace = TRUE)
+  VaR_t_e[i]<--quantile(data_e,0.05)*A
+  ES_t_e[i]<--sum(data_e*(data_e<quantile(data_e,0.05)))/sum(data_e<quantile(data_e,0.05))*A
+}
+CIU_VaR_t_e<-2*VaR_t-quantile(VaR_t_e,0.025)
+CIL_VaR_t_e<-2*VaR_t-quantile(VaR_t_e,0.975)
+CIU_ES_t_e<-2*ES_t-quantile(ES_t_e,0.025,na.rm=TRUE)
+CIL_ES_t_e<-2*ES_t-quantile(ES_t_e,0.975,na.rm=TRUE)
+
+# Sharpe ratio
+t_data<-rowSums(as.matrix(netreturn[,-16])%*%diag(target_weight))
+sr_t<-(mean(t_data)*12-rf)/(sd(t_data)*sqrt(12))
+
 
 # using T-Bills, no short sales
 # wp*miup+(1-wp)*miufree=0.005
 wp_no<-(0.005-mufree)/(mean_tangent_no-mufree)
-wp_no*tangent_weight_no
-(1-wp_no) # risk free proportion
+round(wp_no*tangent_weight_no*100,2)
+round((1-wp_no)*100,2) # risk free proportion
 
 mean_t_no<-(1-wp_no)*mufree+wp_no*mean_tangent_no
+A_mean_t_no<-mean_t_no*12
 sd_t_no<-sqrt(wp_no^2*sd_tangent_no^2)
+A_sd_t_no<-sd_t_no*sqrt(12)
 
 t_data_no<-rowSums(as.matrix(netreturn[,-16])%*%diag(wp_no*tangent_weight_no))+mufree*(1-wp_no)
 VaR_t_no<--quantile(t_data_no,0.05)*A
 ES_t_no<--sum(t_data_no*(t_data_no<quantile(t_data_no,0.05)))/sum(t_data_no<quantile(t_data_no,0.05))*A
 VaR_t_no2<--A*(mean(t_data_no)+qnorm(0.05)*sd(t_data_no))
 ES_t_no2<-A*(-mean(t_data_no)+sd(t_data_no)*dnorm(qnorm(0.05))/0.05)
+
+B=10000
+VaR_t_f<-rep(0,B)
+ES_t_f<-rep(0,B)
+for (i in 1:B){
+  data_f<-sample(t_data_no,length(t_data_no),replace = TRUE)
+  VaR_t_f[i]<--quantile(data_f,0.05)*A
+  ES_t_f[i]<--sum(data_f*(data_f<quantile(data_f,0.05)))/sum(data_f<quantile(data_f,0.05))*A
+}
+CIU_VaR_t_f<-2*VaR_t_no-quantile(VaR_t_f,0.025)
+CIL_VaR_t_f<-2*VaR_t_no-quantile(VaR_t_f,0.975)
+CIU_ES_t_f<-2*ES_t_no-quantile(ES_t_f,0.025,na.rm=TRUE)
+CIL_ES_t_f<-2*ES_t_no-quantile(ES_t_f,0.975,na.rm=TRUE)
+
+
+# Sharpe ratio
+t_data_no<-rowSums(as.matrix(netreturn[,-16])%*%diag(wp_no*tangent_weight_no))+mufree*(1-wp_no)
+sr_t_no<-(mean(t_data_no)*12-rf)/(sd(t_data_no)*sqrt(12))
+
+sr_tangent_no<-(A_mean_t_no-rf)/A_sd_t_no
+  # (mean(tangent_data_no)*12-rf)/(sd(tangent_data_no)*sqrt(12))
 
 
 #############################
