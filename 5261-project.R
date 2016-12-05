@@ -1,13 +1,16 @@
-setwd("D:/研二/Statistical Methods/project/5261-Project-master")
-data<-read.csv("D:/研二/Statistical Methods/project/5261-Project-master/dataset/dataset.csv")
+setwd("D:/脩脨露镁/Statistical Methods/project/5261-Project-master")
+data<-read.csv("D:/脩脨露镁/Statistical Methods/project/5261-Project-master/dataset/dataset.csv")
 summary(data)
 
 ###################################
 #### 2. Descriptive Statistics ####
 ###################################
-library("PerformanceAnalytics")
-asset<-data[,-1]
-netreturn<-asset[2:(nrow(asset)),]/asset[1:(nrow(asset)-1),]-1
+llibrary("PerformanceAnalytics")
+asset = data1[,-1]
+netreturn = asset[2:(nrow(asset)),]/asset[1:(nrow(asset)-1),]-1
+date1 = data1$Date[-1]
+data3 = round(netreturn,3)
+data2 = cbind(date1, data3)
 dim(asset)
 dim(netreturn)
 rf=0.35*10^(-2) #??????????????????????????????///not sure!!!!!!!!!!!!!
@@ -202,26 +205,105 @@ plot_ly(netreturn,y=AMD,type="box",name="AMD") %>%
   layout(title="Boxplot of assets' returns")
 
 
-plot_ly(netreturn,y=AMD,type="box",name="AMD") %>%
-  add_trace(y=AAPL,type="box",name="AAPL") %>%
-  add_trace(y=BAC,type="box",name="BAC") %>%
-  add_trace(y=COKE,type="box",name="COKE") %>%
-  add_trace(y=FCX,type="box",name="FCX") %>%
-  layout(title="Boxplot of five assets' returns")
+# plot_ly(netreturn,y=AMD,type="box",name="AMD") %>%
+#   add_trace(y=AAPL,type="box",name="AAPL") %>%
+#   add_trace(y=BAC,type="box",name="BAC") %>%
+#   add_trace(y=COKE,type="box",name="COKE") %>%
+#   add_trace(y=FCX,type="box",name="FCX") %>%
+#   layout(title="Boxplot of five assets' returns")
+# 
+# plot_ly(netreturn,y=F,type="box",name="F") %>%
+#   add_trace(y=GE,type="box",name="GE") %>%
+#   add_trace(y=MDT,type="box",name="MDT") %>%
+#   add_trace(y=MRO,type="box",name="MRO") %>%
+#   add_trace(y=PFE,type="box",name="PFE") %>%
+#   layout(title="Boxplot of five assets' returns")
+# 
+# plot_ly(netreturn,y=SIRI,type="box",name="SIRI") %>%
+#   add_trace(y=SBUX,type="box",name="SBUX") %>%
+#   add_trace(y=X,type="box",name="X") %>%
+#   add_trace(y=VALE,type="box",name="VALE") %>%
+#   add_trace(y=VZ,type="box",name="VZ") %>%
+#   layout(title="Boxplot of five assets' returns")
 
-plot_ly(netreturn,y=F,type="box",name="F") %>%
-  add_trace(y=GE,type="box",name="GE") %>%
-  add_trace(y=MDT,type="box",name="MDT") %>%
-  add_trace(y=MRO,type="box",name="MRO") %>%
-  add_trace(y=PFE,type="box",name="PFE") %>%
-  layout(title="Boxplot of five assets' returns")
+# Outlier test
+boxplot(netreturn)
 
-plot_ly(netreturn,y=SIRI,type="box",name="SIRI") %>%
-  add_trace(y=SBUX,type="box",name="SBUX") %>%
-  add_trace(y=X,type="box",name="X") %>%
-  add_trace(y=VALE,type="box",name="VALE") %>%
-  add_trace(y=VZ,type="box",name="VZ") %>%
-  layout(title="Boxplot of five assets' returns")
+outlier = boxplot.stats(data2[,2])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,2] == outlier[j], select = c(1,2)))
+}
+
+outlier = boxplot.stats(data2[,3])$out
+for (j in 1:length(outlier)) {
+    print(subset(data2, data2[,3] == outlier[j], select = c(1,3)))
+}
+
+outlier = boxplot.stats(data2[,4])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,4] == outlier[j], select = c(1,4)))
+}
+
+outlier = boxplot.stats(data2[,5])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,5] == outlier[j], select = c(1,5)))
+}
+
+outlier = boxplot.stats(data2[,6])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,6] == outlier[j], select = c(1,6)))
+}
+
+outlier = boxplot.stats(data2[,7])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,7] == outlier[j], select = c(1,7)))
+}
+
+outlier = boxplot.stats(data2[,8])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,8] == outlier[j], select = c(1,8)))
+}
+
+outlier = boxplot.stats(data2[,9])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,9] == outlier[j], select = c(1,9)))
+}
+
+outlier = boxplot.stats(data2[,10])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,10] == outlier[j], select = c(1,10)))
+}
+
+outlier = boxplot.stats(data2[,11])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,11] == outlier[j], select = c(1,11)))
+}
+
+outlier = boxplot.stats(data2[,12])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,12] == outlier[j], select = c(1,12)))
+}
+
+outlier = boxplot.stats(data2[,13])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,13] == outlier[j], select = c(1,13)))
+}
+
+outlier = boxplot.stats(data2[,14])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,14] == outlier[j], select = c(1,14)))
+}
+
+outlier = boxplot.stats(data2[,15])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,15] == outlier[j], select = c(1,15)))
+}
+
+outlier = boxplot.stats(data2[,16])$out
+for (j in 1:length(outlier)) {
+  print(subset(data2, data2[,16] == outlier[j], select = c(1,16)))
+}
+
 
 
 # qqplot
@@ -275,6 +357,41 @@ title(main="vZ",ylab=NULL)
 
 
 # Stationarity Test (normality)
+
+# Priestley-Subba Rao
+library(fractal)
+s1<-stationarity(netreturn[,1])
+attr(s1,"pvals")
+s2<-stationarity(netreturn[,2])
+attr(s2,"pvals")
+s3<-stationarity(netreturn[,3])
+attr(s3,"pvals")
+s4<-stationarity(netreturn[,4])
+attr(s4,"pvals")
+s5<-stationarity(netreturn[,5])
+attr(s5,"pvals")
+s6<-stationarity(netreturn[,6])
+attr(s6,"pvals")
+s7<-stationarity(netreturn[,7])
+attr(s7,"pvals")
+s8<-stationarity(netreturn[,8])
+attr(s8,"pvals")
+s9<-stationarity(netreturn[,9])
+attr(s9,"pvals")
+s10<-stationarity(netreturn[,10])
+attr(s10,"pvals")
+s11<-stationarity(netreturn[,11])
+attr(s11,"pvals")
+s12<-stationarity(netreturn[,12])
+attr(s12,"pvals")
+s13<-stationarity(netreturn[,13])
+attr(s13,"pvals")
+s14<-stationarity(netreturn[,14])
+attr(s14,"pvals")
+s15<-stationarity(netreturn[,15])
+attr(s15,"pvals")
+
+
 # Box-Ljung Test
 Box.test(netreturn[,1])
 Box.test(netreturn[,2])
@@ -369,6 +486,108 @@ for(i in 1:(ncol(netreturn)-1)){
 }
 AICt
 
+# Density Plot
+
+par(mfrow = c(1,5))
+
+plot(density(netreturn$AMD, adjust = 0.3, kernel = "gaussian"), main = "Density of AMD (Adjust = 0.3)")
+plot(density(netreturn$AMD, adjust = 0.7, kernel = "gaussian"), main = "Density of AMD (Adjust = 0.7)")
+plot(density(netreturn$AMD, adjust = 1, kernel = "gaussian"), main = "Density of AMD (Adjust = 1)")
+plot(density(netreturn$AMD, adjust = 3, kernel = "gaussian"), main = "Density of AMD (Adjust = 3)")
+plot(density(netreturn$AMD, adjust = 7, kernel = "gaussian"), main = "Density of AMD (Adjust = 7)")
+
+plot(density(netreturn$AAPL, adjust = 0.3, kernel = "gaussian"), main = "Density of AAPL (Adjust = 0.3)")
+plot(density(netreturn$AAPL, adjust = 0.7, kernel = "gaussian"), main = "Density of AAPL (Adjust = 0.7)")
+plot(density(netreturn$AAPL, adjust = 1, kernel = "gaussian"), main = "Density of AAPL (Adjust = 1)")
+plot(density(netreturn$AAPL, adjust = 3, kernel = "gaussian"), main = "Density of AAPL (Adjust = 3)")
+plot(density(netreturn$AAPL, adjust = 7, kernel = "gaussian"), main = "Density of AAPL (Adjust = 7)")
+
+plot(density(netreturn$BAC, adjust = 0.3, kernel = "gaussian"), main = "Density of BAC (Adjust = 0.3)")
+plot(density(netreturn$BAC, adjust = 0.7, kernel = "gaussian"), main = "Density of BAC (Adjust = 0.7)")
+plot(density(netreturn$BAC, adjust = 1, kernel = "gaussian"), main = "Density of BAC (Adjust = 1)")
+plot(density(netreturn$BAC, adjust = 3, kernel = "gaussian"), main = "Density of BAC (Adjust = 3)")
+plot(density(netreturn$BAC, adjust = 7, kernel = "gaussian"), main = "Density of BAC (Adjust = 7)")
+
+plot(density(netreturn$COKE, adjust = 0.3, kernel = "gaussian"), main = "Density of COKE (Adjust = 0.3)")
+plot(density(netreturn$COKE, adjust = 0.7, kernel = "gaussian"), main = "Density of COKE (Adjust = 0.7)")
+plot(density(netreturn$COKE, adjust = 1, kernel = "gaussian"), main = "Density of COKE (Adjust = 1)")
+plot(density(netreturn$COKE, adjust = 3, kernel = "gaussian"), main = "Density of COKE (Adjust = 3)")
+plot(density(netreturn$COKE, adjust = 7, kernel = "gaussian"), main = "Density of COKE (Adjust = 7)")
+
+plot(density(netreturn$FCX, adjust = 0.3, kernel = "gaussian"), main = "Density of FCX (Adjust = 0.3)")
+plot(density(netreturn$FCX, adjust = 0.7, kernel = "gaussian"), main = "Density of FCX (Adjust = 0.7)")
+plot(density(netreturn$FCX, adjust = 1, kernel = "gaussian"), main = "Density of FCX (Adjust = 1)")
+plot(density(netreturn$FCX, adjust = 3, kernel = "gaussian"), main = "Density of FCX (Adjust = 3)")
+plot(density(netreturn$FCX, adjust = 7, kernel = "gaussian"), main = "Density of FCX (Adjust = 7)")
+
+plot(density(netreturn$F, adjust = 0.3, kernel = "gaussian"), main = "Density of F (Adjust = 0.3)")
+plot(density(netreturn$F, adjust = 0.7, kernel = "gaussian"), main = "Density of F (Adjust = 0.7)")
+plot(density(netreturn$F, adjust = 1, kernel = "gaussian"), main = "Density of F (Adjust = 1)")
+plot(density(netreturn$F, adjust = 3, kernel = "gaussian"), main = "Density of F (Adjust = 3)")
+plot(density(netreturn$F, adjust = 7, kernel = "gaussian"), main = "Density of F (Adjust = 7)")
+
+plot(density(netreturn$GE, adjust = 0.3, kernel = "gaussian"), main = "Density of GE (Adjust = 0.3)")
+plot(density(netreturn$GE, adjust = 0.7, kernel = "gaussian"), main = "Density of GE (Adjust = 0.7)")
+plot(density(netreturn$GE, adjust = 1, kernel = "gaussian"), main = "Density of GE (Adjust = 1)")
+plot(density(netreturn$GE, adjust = 3, kernel = "gaussian"), main = "Density of GE (Adjust = 3)")
+plot(density(netreturn$GE, adjust = 7, kernel = "gaussian"), main = "Density of GE (Adjust = 7)")
+
+plot(density(netreturn$MDT, adjust = 0.3, kernel = "gaussian"), main = "Density of MDT (Adjust = 0.3)")
+plot(density(netreturn$MDT, adjust = 0.7, kernel = "gaussian"), main = "Density of MDT (Adjust = 0.7)")
+plot(density(netreturn$MDT, adjust = 1, kernel = "gaussian"), main = "Density of MDT (Adjust = 1)")
+plot(density(netreturn$MDT, adjust = 3, kernel = "gaussian"), main = "Density of MDT (Adjust = 3)")
+plot(density(netreturn$MDT, adjust = 7, kernel = "gaussian"), main = "Density of MDT (Adjust = 7)")
+
+plot(density(netreturn$MRO, adjust = 0.3, kernel = "gaussian"), main = "Density of MRO (Adjust = 0.3)")
+plot(density(netreturn$MRO, adjust = 0.7, kernel = "gaussian"), main = "Density of MRO (Adjust = 0.7)")
+plot(density(netreturn$MRO, adjust = 1, kernel = "gaussian"), main = "Density of MRO (Adjust = 1)")
+plot(density(netreturn$MRO, adjust = 3, kernel = "gaussian"), main = "Density of MRO (Adjust = 3)")
+plot(density(netreturn$MRO, adjust = 7, kernel = "gaussian"), main = "Density of MRO (Adjust = 7)")
+
+plot(density(netreturn$PFE, adjust = 0.3, kernel = "gaussian"), main = "Density of PFE (Adjust = 0.3)")
+plot(density(netreturn$PFE, adjust = 0.7, kernel = "gaussian"), main = "Density of PFE (Adjust = 0.7)")
+plot(density(netreturn$PFE, adjust = 1, kernel = "gaussian"), main = "Density of PFE (Adjust = 1)")
+plot(density(netreturn$PFE, adjust = 3, kernel = "gaussian"), main = "Density of PFE (Adjust = 3)")
+plot(density(netreturn$PFE, adjust = 7, kernel = "gaussian"), main = "Density of PFE (Adjust = 7)")
+
+plot(density(netreturn$SIRI, adjust = 0.3, kernel = "gaussian"), main = "Density of SIRI (Adjust = 0.3)")
+plot(density(netreturn$SIRI, adjust = 0.7, kernel = "gaussian"), main = "Density of SIRI (Adjust = 0.7)")
+plot(density(netreturn$SIRI, adjust = 1, kernel = "gaussian"), main = "Density of SIRI (Adjust = 1)")
+plot(density(netreturn$SIRI, adjust = 3, kernel = "gaussian"), main = "Density of SIRI (Adjust = 3)")
+plot(density(netreturn$SIRI, adjust = 7, kernel = "gaussian"), main = "Density of SIRI (Adjust = 7)")
+
+plot(density(netreturn$SBUX, adjust = 0.3, kernel = "gaussian"), main = "Density of SBUX (Adjust = 0.3)")
+plot(density(netreturn$SBUX, adjust = 0.7, kernel = "gaussian"), main = "Density of SBUX (Adjust = 0.7)")
+plot(density(netreturn$SBUX, adjust = 1, kernel = "gaussian"), main = "Density of SBUX (Adjust = 1)")
+plot(density(netreturn$SBUX, adjust = 3, kernel = "gaussian"), main = "Density of SBUX (Adjust = 3)")
+plot(density(netreturn$SBUX, adjust = 7, kernel = "gaussian"), main = "Density of SBUX (Adjust = 7)")
+
+plot(density(netreturn$X, adjust = 0.3, kernel = "gaussian"), main = "Density of X (Adjust = 0.3)")
+plot(density(netreturn$X, adjust = 0.7, kernel = "gaussian"), main = "Density of X (Adjust = 0.7)")
+plot(density(netreturn$X, adjust = 1, kernel = "gaussian"), main = "Density of X (Adjust = 1)")
+plot(density(netreturn$X, adjust = 3, kernel = "gaussian"), main = "Density of X (Adjust = 3)")
+plot(density(netreturn$X, adjust = 7, kernel = "gaussian"), main = "Density of X (Adjust = 7)")
+
+
+plot(density(netreturn$VALE, adjust = 0.3, kernel = "gaussian"), main = "Density of VALE (Adjust = 0.3)")
+plot(density(netreturn$VALE, adjust = 0.7, kernel = "gaussian"), main = "Density of VALE (Adjust = 0.7)")
+plot(density(netreturn$VALE, adjust = 1, kernel = "gaussian"), main = "Density of VALE (Adjust = 1)")
+plot(density(netreturn$VALE, adjust = 3, kernel = "gaussian"), main = "Density of VALE (Adjust = 3)")
+plot(density(netreturn$VALE, adjust = 7, kernel = "gaussian"), main = "Density of VALE (Adjust = 7)")
+
+plot(density(netreturn$VZ, adjust = 0.3, kernel = "gaussian"), main = "Density of VZ (Adjust = 0.3)")
+plot(density(netreturn$VZ, adjust = 0.7, kernel = "gaussian"), main = "Density of VZ (Adjust = 0.7)")
+plot(density(netreturn$VZ, adjust = 1, kernel = "gaussian"), main = "Density of VZ (Adjust = 1)")
+plot(density(netreturn$VZ, adjust = 3, kernel = "gaussian"), main = "Density of VZ (Adjust = 3)")
+plot(density(netreturn$VZ, adjust = 7, kernel = "gaussian"), main = "Density of VZ (Adjust = 7)")
+
+plot(density(netreturn$SP500, adjust = 0.3, kernel = "gaussian"), main = "Density of SP500 (Adjust = 0.3)")
+plot(density(netreturn$SP500, adjust = 0.7, kernel = "gaussian"), main = "Density of SP500 (Adjust = 0.7)")
+plot(density(netreturn$SP500, adjust = 1, kernel = "gaussian"), main = "Density of SP500 (Adjust = 1)")
+plot(density(netreturn$SP500, adjust = 3, kernel = "gaussian"), main = "Density of SP500 (Adjust = 3)")
+plot(density(netreturn$SP500, adjust = 7, kernel = "gaussian"), main = "Density of SP500 (Adjust = 7)")
+
+par(mfrow = c(1,1))
 
 
 
