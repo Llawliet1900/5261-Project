@@ -1149,41 +1149,106 @@ CIL_VaR<-2*ES15_non-apply(ES15_boot,2,quantile,0.975,na.rm=TRUE)
 #############################
 #### 5. PCA              ####
 #############################
+
+# Correlation
+library(corrplot)
 mat<-cor(netreturn[,-16])
+print(round(cor(data3[,-16]),3))
+
+par(mfrow = c(1,2))
+corrplot.mixed(mat)
+
+cor.mtest <- function(mat, conf.level = 0.95){
+  mat <- as.matrix(mat)
+  n <- ncol(mat)
+  p.mat <- lowCI.mat <- uppCI.mat <- matrix(NA, n, n)
+  diag(p.mat) <- 0
+  diag(lowCI.mat) <- diag(uppCI.mat) <- 1
+  for(i in 1:(n-1)){
+    for(j in (i+1):n){
+      tmp <- cor.test(mat[,i], mat[,j], conf.level = conf.level)
+      p.mat[i,j] <- p.mat[j,i] <- tmp$p.value
+      lowCI.mat[i,j] <- lowCI.mat[j,i] <- tmp$conf.int[1]
+      uppCI.mat[i,j] <- uppCI.mat[j,i] <- tmp$conf.int[2]
+    }
+  }
+  return(list(p.mat, lowCI.mat, uppCI.mat))
+}
+
+res1 <- cor.mtest(netreturn[,-16],0.95)
+
+# specialized the insignificant value according to the significant level
+corrplot(mat, p.mat = res1[[1]], sig.level=0.05)
+par(mfrow = c(1,1))
+
+
+## PCA
 pca<-prcomp(mat,scale=TRUE)
-eig<-(pca$sdev)^2
-variance<-eig*100/sum(eig)
-cumvar<-cumsum(variance)
-pca_sum<-data.frame(eigenvalue=eig,variance=variance,cumvariance=cumvar)
-summary(pca) # include standard deviation, proportion of var, cumsum of var proportion
+pca$rotation
+summary(pca)
 
-barplot(pca_sum$variance,names.arg=1:length(pca_sum$variance),
-        main="Variances",
-        xlab="Principal Components",
-        yla="Percentage of Variances",
-        col="steelblue")
-lines(x=1:length(pca_sum$variance),
-      pca_sum$variance,
-      type="b",pch=19,col="red")
+# plot the scree plot
+eig = (pca$sdev)^2
+variance = eig*100/sum(eig)
+cumvar = cumsum(variance)
+p.eig <- data.frame(eig = eig, variance = variance, cumvariance = cumvar)
+p.eig
+barplot(p.eig[, 2], names.arg=1:nrow(p.eig),main = "Variances explained by PC's",ylim =c(0,30),
+        xlab = "Principal Components", ylab = "Percentage of variances",col ="darkblue")
+# Add connected line segments to the plot
+p.lab=p.eig[,2]
+p.label=round(p.lab, digits = 2)
+lines(x = 1:nrow(p.eig), p.eig[, 2], type="b", pch=19, col = "red")
+textxy(1:nrow(p.eig), p.eig[, 2],
+       labs = c(p.label),cex = 0.8, offset = c(0.5, 0.8),col="red")
 
-# install.packages("devtools")
-# devtools::install_github("kassambara/factoextra")
-library("devtools")
-library("factoextra")
-fviz_screeplot(pca,ncp=15,addlabels=T)
 
-# PCA Analysis on yield curve
-f1<-pca$rotation[,1]
-f2<-pca$rotation[,2]
-f3<-pca$rotation[,3]
-plot(f1,type="b",main="PCA on yield curve",ylim=c(min(f1,f2,f3)-.5,max(f1,f2,f3)+.5),xlab="Term",ylab="Factor Loadings")
-lines(f2,col="blue",type="b")
-lines(f3,col="red",type="b")
-legend.factor<-c('1st PC','2nd PC','3rd PC')
-legend("bottomright",lty=c(1,1,1),legend=legend.factor,col=c("black","blue","red"))
-# Source: http://www.sthda.com/english/wiki/principal-component-analysis-in-r-prcomp-vs-princomp-r-software-and-data-mining
+# # install.packages("devtools")
+# # devtools::install_github("kassambara/factoextra")
+# library("devtools")
+# library("factoextra")
+# fviz_screeplot(pca,ncp=15,addlabels=T)
+# 
+# # PCA Analysis on yield curve
+# f1<-pca$rotation[,1]
+# f2<-pca$rotation[,2]
+# f3<-pca$rotation[,3]
+# plot(f1,type="b",main="PCA on yield curve",ylim=c(min(f1,f2,f3)-.5,max(f1,f2,f3)+.5),xlab="Term",ylab="Factor Loadings")
+# lines(f2,col="blue",type="b")
+# lines(f3,col="red",type="b")
+# legend.factor<-c('1st PC','2nd PC','3rd PC')
+# legend("bottomright",lty=c(1,1,1),legend=legend.factor,col=c("black","blue","red"))
+# # Source: http://www.sthda.com/english/wiki/principal-component-analysis-in-r-prcomp-vs-princomp-r-software-and-data-mining#coordinates-of-variables-on-the-principal-components
 
-# Factor Models
+
+
+# Plot the correlation circle
+a <- seq(0, 2*pi, length = 100)
+plot( cos(a), sin(a), type = 'l', col="gray",
+      xlab = "PC1 (27.6%)",  ylab = "PC2 (19.6%)",
+      main = "Projection of the First Two Pricipal Components")
+abline(h = 0, v = 0, lty = 2)
+# Add active variables
+var_cor_func <- function(var.loadings, comp.sdev){
+  var.loadings*comp.sdev
+}
+loadings <- pca$rotation
+sdev <- pca$sdev
+var.coord <- t(apply(loadings, 1, var_cor_func, sdev))
+arrows(0, 0, var.coord[, 1], var.coord[, 2], 
+       length = 0.1, angle = 15, code = 2)
+text(var.coord, labels=rownames(var.coord), cex = 1, adj=1)
+
+
+fviz_pca_var(pca, col.var="contrib") +
+  scale_color_gradient2(low="green", mid="royalblue2", 
+                        high="red", midpoint=50) + theme_minimal()
+fviz_pca_contrib(pca, choice = "var", axes = 1, top = 9)
+fviz_pca_contrib(pca, choice = "var", axes = 2, top = 7)
+fviz_pca_contrib(pca, choice = "var", axes = 3, top = 7)
+
+
+## Factor Models
 library("psych")
 library("GPArotation")
 describe(netreturn[,-16])
@@ -1192,8 +1257,28 @@ cor.plot(mat,numbers=TRUE,main="Correlation Matrix Heatmap")
 ft<-fa(netreturn[,-16],3)
 fa.diagram(ft)
 
-ft2<-factanal(netreturn[,-16],factors=3,rotation="varimax")
-print(ft2,digits=2,cutoff=.2,sort=TRUE)
+ft2<-factanal(netreturn[,-16],factors=2,rotation="varimax")
+print(ft2,digits=3,sort=TRUE)
+
+ft3<-factanal(netreturn[,-16],factors=3,rotation="varimax")
+print(ft3,digits=3,sort=TRUE)
+
+ft4<-factanal(netreturn[,-16],factors=4,rotation="varimax")
+print(ft4,digits=3,sort=TRUE)
+
+ft5<-factanal(netreturn[,-16],factors=5,rotation="varimax")
+print(ft5,digits=2,sort=TRUE)
+
+ft4.load = ft4$loadings[1:15,]
+ft4.loading =as.data.frame(ft4.load)
+
+plot(ft4.load,type = "p",pch=19, col = "red", main = "Loadings for Factor1 and Factor2")
+textxy(ft4.loading$Factor1,ft4.loading$Factor2,
+       labs = row.names(ft4.load),cex = 0.8, offset =0.5,srt = 30,col="royalblue2")
+
+plot(ft4.load[,3:4],type = "p",pch=19, col = "red", main = "Loadings for Factor3 and Factor4")
+textxy(ft4.loading$Factor3,ft4.loading$Factor4,
+       labs = row.names(ft4.load),cex = 0.8, offset =0.5,srt = 15,col="royalblue2")
 
 
 
@@ -1208,27 +1293,37 @@ cop.norm = normalCopula(dim=15)
 fit.copnorm = fitCopula(cop.norm,pobs(netreturn[,-16]),method="ml")
 fit.copnorm
 AIC(fit.copnorm)
+BIC(fit.copnorm)
+logLik(fit.copnorm)
 
 cop.t = tCopula(dim=15)
 fit.copt = fitCopula(cop.t,pobs(netreturn[,-16]),method = "ml")
 fit.copt
 AIC(fit.copt)
+BIC(fit.copt)
+logLik(fit.copt)
 
 cop.clayton = claytonCopula(dim=15)
 fit.copclayton = fitCopula(cop.clayton,pobs(netreturn[,-16]),method = "ml")
 fit.copclayton
 AIC(fit.copclayton)
+BIC(fit.copclayton)
+logLik(fit.copclayton)
 
 cop.gumbel = gumbelCopula(dim=15)
 fit.copgumbel = fitCopula(cop.gumbel,pobs(netreturn[,-16]),method = "ml")
 fit.copgumbel
 AIC(fit.copgumbel)
+BIC(fit.copgumbel)
+logLik(fit.copgumbel)
 
 
 cop.archm = archmCopula(family = "frank",dim=15)
 fit.archm = fitCopula(cop.archm, pobs(netreturn[,-16]),method = "ml")
 fit.archm
 AIC(fit.archm)
+BIC(fit.archm)
+logLik(fit.archm)
 
 
 
