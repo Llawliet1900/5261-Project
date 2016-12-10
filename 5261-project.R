@@ -5,10 +5,10 @@ summary(data)
 ###################################
 #### 2. Descriptive Statistics ####
 ###################################
-llibrary("PerformanceAnalytics")
-asset = data1[,-1]
+library("PerformanceAnalytics")
+asset = data[,-1]
 netreturn = asset[2:(nrow(asset)),]/asset[1:(nrow(asset)-1),]-1
-date1 = data1$Date[-1]
+date1 = data$Date[-1]
 data3 = round(netreturn,3)
 data2 = cbind(date1, data3)
 dim(asset)
