@@ -457,6 +457,8 @@ s14<-stationarity(netreturn[,14])
 attr(s14,"pvals")
 s15<-stationarity(netreturn[,15])
 attr(s15,"pvals")
+s16<-stationarity(netreturn[,16])
+attr(s16,"pvals")
 
 
 # Box-Ljung Test
