@@ -34,16 +34,12 @@ sp500<-netreturn[,ncol(netreturn)]
 
 # mean
 apply(netreturn,2,mean)
-apply(asset,2,mean)
 # std
 apply(netreturn,2,sd)
-apply(asset,2,sd)
 # skewness
 apply(netreturn,2,skewness)
-apply(asset,2,skewness)
 # kurtosis
 apply(netreturn,2,kurtosis)
-apply(asset,2,kurtosis)
 
 # annualized statistics
 round(apply(netreturn,2,mean)*12,2)
@@ -460,92 +456,7 @@ attr(s15,"pvals")
 s16<-stationarity(netreturn[,16])
 attr(s16,"pvals")
 
-
-# Box-Ljung Test
-Box.test(netreturn[,1])
-Box.test(netreturn[,2])
-Box.test(netreturn[,3])
-Box.test(netreturn[,4])
-Box.test(netreturn[,5])
-Box.test(netreturn[,6])
-Box.test(netreturn[,7])
-Box.test(netreturn[,8])
-Box.test(netreturn[,9])
-Box.test(netreturn[,10])
-Box.test(netreturn[,11])
-Box.test(netreturn[,12])
-Box.test(netreturn[,13])
-Box.test(netreturn[,14])
-Box.test(netreturn[,15])
-
-# Augmented Dickey-Fuller Test
-library("tseries")
-adf.test(netreturn[,1])
-adf.test(netreturn[,2])
-adf.test(netreturn[,3])
-adf.test(netreturn[,4])
-adf.test(netreturn[,5])
-adf.test(netreturn[,6])
-adf.test(netreturn[,7])
-adf.test(netreturn[,8])
-adf.test(netreturn[,9])
-adf.test(netreturn[,10])
-adf.test(netreturn[,11])
-adf.test(netreturn[,12])
-adf.test(netreturn[,13])
-adf.test(netreturn[,14])
-adf.test(netreturn[,15])
-
-# Kwiatkowski-Phillips_Schmidt_Shin test
-kpss.test(netreturn[,1])
-kpss.test(netreturn[,2])
-kpss.test(netreturn[,3])
-kpss.test(netreturn[,4])
-kpss.test(netreturn[,5])
-kpss.test(netreturn[,6])
-kpss.test(netreturn[,7])
-kpss.test(netreturn[,8])
-kpss.test(netreturn[,9])
-kpss.test(netreturn[,10])
-kpss.test(netreturn[,11])
-kpss.test(netreturn[,12])
-kpss.test(netreturn[,13])
-kpss.test(netreturn[,14])
-kpss.test(netreturn[,15])
-
-# Philipps-Perron test
-pp.test(netreturn[,1])
-pp.test(netreturn[,2])
-pp.test(netreturn[,3])
-pp.test(netreturn[,4])
-pp.test(netreturn[,5])
-pp.test(netreturn[,6])
-pp.test(netreturn[,7])
-pp.test(netreturn[,8])
-pp.test(netreturn[,9])
-pp.test(netreturn[,10])
-pp.test(netreturn[,11])
-pp.test(netreturn[,12])
-pp.test(netreturn[,13])
-pp.test(netreturn[,14])
-pp.test(netreturn[,15])
-
 # Normality Test
-jarqueberaTest(netreturn[,1])
-jarqueberaTest(netreturn[,2])
-jarqueberaTest(netreturn[,3])
-jarqueberaTest(netreturn[,4])
-jarqueberaTest(netreturn[,5])
-jarqueberaTest(netreturn[,6])
-jarqueberaTest(netreturn[,7])
-jarqueberaTest(netreturn[,8])
-jarqueberaTest(netreturn[,9])
-jarqueberaTest(netreturn[,10])
-jarqueberaTest(netreturn[,11])
-jarqueberaTest(netreturn[,12])
-jarqueberaTest(netreturn[,13])
-jarqueberaTest(netreturn[,14])
-jarqueberaTest(netreturn[,15])
 
 ks.test(netreturn[,1])
 ks.test(netreturn[,2])
@@ -562,10 +473,7 @@ ks.test(netreturn[,12])
 ks.test(netreturn[,13])
 ks.test(netreturn[,14])
 ks.test(netreturn[,15])
-
-
 # Source: http://www.statosphere.com.au/check-time-series-stationary-r/
-
 
 # Fit Distributions
 library("fitdistrplus")
