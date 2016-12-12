@@ -13,7 +13,7 @@ data3 = round(netreturn,3)
 data2 = cbind(date1, data3)
 dim(asset)
 dim(netreturn)
-rf=0.07*10^(-2) #??????????????????????????????///not sure!!!!!!!!!!!!!
+rf=0.07*10^(-2) 
 
 AMD<-netreturn[,1]
 AAPL<-netreturn[,2]
@@ -458,21 +458,21 @@ attr(s16,"pvals")
 
 # Normality Test
 
-ks.test(netreturn[,1])
-ks.test(netreturn[,2])
-ks.test(netreturn[,3])
-ks.test(netreturn[,4])
-ks.test(netreturn[,5])
-ks.test(netreturn[,6])
-ks.test(netreturn[,7])
-ks.test(netreturn[,8])
-ks.test(netreturn[,9])
-ks.test(netreturn[,10])
-ks.test(netreturn[,11])
-ks.test(netreturn[,12])
-ks.test(netreturn[,13])
-ks.test(netreturn[,14])
-ks.test(netreturn[,15])
+ks.test(netreturn[,1],"pnorm")
+ks.test(netreturn[,2],"pnorm")
+ks.test(netreturn[,3],"pnorm")
+ks.test(netreturn[,4],"pnorm")
+ks.test(netreturn[,5],"pnorm")
+ks.test(netreturn[,6],"pnorm")
+ks.test(netreturn[,7],"pnorm")
+ks.test(netreturn[,8],"pnorm")
+ks.test(netreturn[,9],"pnorm")
+ks.test(netreturn[,10],"pnorm")
+ks.test(netreturn[,11],"pnorm")
+ks.test(netreturn[,12],"pnorm")
+ks.test(netreturn[,13],"pnorm")
+ks.test(netreturn[,14],"pnorm")
+ks.test(netreturn[,15],"pnorm")
 # Source: http://www.statosphere.com.au/check-time-series-stationary-r/
 
 # Fit Distributions
@@ -1210,6 +1210,13 @@ fit.copt
 AIC(fit.copt)
 BIC(fit.copt)
 logLik(fit.copt)
+
+rho<-coef(fit.copt)[1]
+df<-coef(fit.copt)[2]
+persp(tCopula(dim=2,rho,df=df),dCopula)
+u<-rCopula(4000,tCopula(dim=15,rho,df=df))
+qplot(u[,1],u[,2],colour = u[,1], main="t copula random samples", xlab = "u", ylab = "v")
+# plot(u[,1],u[,2],pch="*",col="blue")
 
 cop.clayton = claytonCopula(dim=15)
 fit.copclayton = fitCopula(cop.clayton,pobs(netreturn[,-16]),method = "ml")
