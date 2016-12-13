@@ -1213,7 +1213,7 @@ logLik(fit.copt)
 
 rho<-coef(fit.copt)[1]
 df<-coef(fit.copt)[2]
-persp(tCopula(dim=2,rho,df=df),dCopula)
+persp(tCopula(dim=2,rho,df=df),dCopula, col = rainbow(800))
 u<-rCopula(4000,tCopula(dim=15,rho,df=df))
 qplot(u[,1],u[,2],colour = u[,1], main="t copula random samples", xlab = "u", ylab = "v")
 # plot(u[,1],u[,2],pch="*",col="blue")
